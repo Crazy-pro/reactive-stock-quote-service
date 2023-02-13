@@ -1,0 +1,30 @@
+version: 2.1
+orbs:
+  codecov: codecov/codecov@3.2.4
+  sonarcloud: sonarsource/sonarcloud@1.1.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:18.0.2
+      - image: circleci/mongo:latest
+        environment:
+          MONGODB_ALLOW_EMPTY_PASSWORD: yes
+          MONGODB_ROOT_PASSWORD: ""
+      - image: circleci/rabbitmq:latest
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - run:
+          name: Run tests and collect coverage
+          command: mvn -B test
+      - codecov/upload
+      - sonarcloud/scan
+
+workflow:
+  build-test-scan:
+    jobs:
+      - build:
+          context: SonarCloud
