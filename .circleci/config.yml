@@ -11,7 +11,6 @@ jobs:
         environment:
           MONGODB_ALLOW_EMPTY_PASSWORD: yes
           MONGODB_ROOT_PASSWORD: ""
-      - image: circleci/rabbitmq:latest
     steps:
       - checkout
       - run:
