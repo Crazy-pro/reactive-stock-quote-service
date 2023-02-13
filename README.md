@@ -1,5 +1,5 @@
 ### Reactive Stock Quote Service
-Simple Web Application written to understand Spring WebFlux Framework concept. 
+Simple Web Application written to understand Spring WebFlux Framework concept.
 
 
 
